@@ -21,7 +21,6 @@ import {
   HexStr,
   StatementRead,
 } from '../shared/types'
-import { registryABI } from '../utils/contracts.json'
 import { postInvite } from '../utils/project'
 import { useAccountContext } from '../wallet/AccountContext'
 
@@ -95,7 +94,6 @@ export const ProjectContext = (props: IProjectContext) => {
     isLoading,
   } = useReadContract({
     address: project?.address,
-    abi: registryABI,
     functionName: 'totalSupply',
     query: { enabled: project !== undefined },
   })

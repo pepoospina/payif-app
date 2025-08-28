@@ -1,18 +1,4 @@
-import {
-  Account,
-  Address,
-  Chain,
-  ParseAccount,
-  Transport,
-  WalletClient,
-  decodeEventLog,
-} from 'viem'
-
-import { registryFactoryABI } from './contracts.json'
-
-export type RegistryCreatedEvent = Awaited<
-  ReturnType<typeof decodeEventLog<typeof registryFactoryABI, 'RegistryCreated'>>
->
+import { Account, Address, Chain, ParseAccount, Transport, WalletClient } from 'viem'
 
 export type Signer = WalletClient<
   Transport,

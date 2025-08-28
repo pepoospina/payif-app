@@ -21,7 +21,7 @@ import { useLoadingContext } from '../contexts/LoadingContext'
 import { I18Keys } from '../i18n/kyel.list'
 import { HexStr } from '../shared/types'
 import { getAccountAddress } from '../shared/utils/aa-sdk'
-import { getFactoryAddress, registryABI, registryFactoryABI } from '../utils/contracts.json'
+import { PayIfABI } from '../utils/contracts.json'
 import { postUser } from '../utils/users'
 import { AccountDataContext } from './AccountDataContext'
 import { chain } from './ConnectedWalletContext'
@@ -180,37 +180,6 @@ export const AccountContext = (props: PropsWithChildren) => {
         hash: txHash,
       })
       if (DEBUG) console.log('tx - res', { tx })
-
-      const targets = _userOps.map((op) => op.target.toLowerCase())
-
-      // extract all events from the target contracts (events from other callers would be here too... hmmm)
-      const logs = tx.logs.filter((log: any) => targets.includes(log.address.toLowerCase()))
-      const factoryAddress = await getFactoryAddress()
-
-      console.log({ logs })
-      const events = logs
-        .map((log: any) => {
-          if (log.address.toLowerCase() === factoryAddress.toLowerCase()) {
-            return decodeEventLog({
-              abi: registryFactoryABI,
-              data: log.data,
-              topics: log.topics,
-            })
-          } else {
-            try {
-              return decodeEventLog({
-                abi: registryABI,
-                data: log.data,
-                topics: log.topics,
-              })
-            } catch (e) {
-              return undefined
-            }
-          }
-        })
-        .filter((e: any) => e !== undefined)
-
-      console.log({ events })
 
       setSubtitle(t([I18Keys.operationSuccessful]))
 
