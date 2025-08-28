@@ -1,0 +1,5 @@
+/build
+/node_modules
+/src/config/config.prod.ts
+craco.config.test.js
+.env
