@@ -1,3 +1,5 @@
+import { Indexed } from "./types.feed";
+
 export enum Language {
   SPA = "spa",
   CAT = "cat",
@@ -10,7 +12,7 @@ export interface Translations {
   eng?: string;
 }
 
-export interface Payment {
+export interface Payment extends Indexed {
   id: string;
   token: string;
   amount: string;
@@ -19,3 +21,5 @@ export interface Payment {
 }
 
 export type CreatePayment = Omit<Payment, "id">;
+
+export type UpdatePayment = CreatePayment;

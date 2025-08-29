@@ -1,6 +1,4 @@
 export enum CollectionNames {
-  Users = "users",
-  Products = "products",
-  Categories = "categories",
-  Orders = "orders",
+  Users = 'users',
+  Payments = 'payments',
 }

@@ -1,0 +1,34 @@
+{
+  "raw": {
+    "did": "did:plc:52g2kvtkicy7eg5u4s46nr52",
+    "handle": "jeffreygoldberg.bsky.social",
+    "displayName": "Jeffrey Goldberg",
+    "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:52g2kvtkicy7eg5u4s46nr52/bafkreihu5rewf7xufgwvg3yx2ldeuea2htbwt3asnquonasamoirf5sfoa@jpeg",
+    "associated": {
+      "lists": 0,
+      "feedgens": 0,
+      "starterPacks": 0,
+      "labeler": false
+    },
+    "viewer": {
+      "muted": false,
+      "blockedBy": false
+    },
+    "labels": [],
+    "createdAt": "2024-11-16T21:10:49.169Z",
+    "description": "Editor in chief, The Atlantic. Moderator, Washington Week with The Atlantic, on PBS.",
+    "indexedAt": "2025-03-25T13:18:58.377Z",
+    "followersCount": 61993,
+    "followsCount": 70,
+    "postsCount": 4
+  },
+  "generic": {
+    "id": "did:plc:52g2kvtkicy7eg5u4s46nr52",
+    "displayName": "Jeffrey Goldberg",
+    "username": "jeffreygoldberg.bsky.social",
+    "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:52g2kvtkicy7eg5u4s46nr52/bafkreihu5rewf7xufgwvg3yx2ldeuea2htbwt3asnquonasamoirf5sfoa@jpeg",
+    "metrics": {
+      "followers": 61993
+    }
+  }
+}

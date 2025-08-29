@@ -1,0 +1,31 @@
+# Compiled JavaScript files
+lib/**/*.js
+lib/**/*.js.map
+
+lib-test/
+lib-scripts/
+
+# TypeScript v1 declaration files
+typings/
+
+# Node.js dependency directory
+node_modules/
+
+.env.*
+.secret.*
+
+test/__tests__/test.users.json
+test.png
+
+# service account credentials
+**/*firebase-adminsdk*.json
+/scripts/.script.env
+users.dashboard.output.json
+/migrations/.migrations.env
+
+test.email.html
+cervesera-key-*.json
+
+*-all.nanopubs.data
+
+/seed/output

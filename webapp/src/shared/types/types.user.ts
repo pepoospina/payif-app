@@ -13,42 +13,7 @@ export const toHexStr = (str: string): HexStr => {
 
 /** The AppUser object combines the details of each platform */
 export interface UserWithId {
-  clerkId: string;
   userId: string;
-}
-
-export interface UserWithSettings {
-  signupDate: number;
-  email: string;
-}
-
-export interface UserWithAccounts {
-  profilesIds: string[]; // redundant, used to index users with accounts
-}
-
-export interface Address {
-  address: string;
-  address2: string;
-  country: string;
-  city: string;
-  zip: string;
-}
-
-export interface UserWithAddress {
-  address?: Address;
-}
-
-export interface ContactDetails {
-  email: string;
-  phone: string;
-}
-
-export interface UserWithContact {
-  contactDetails?: ContactDetails;
-}
-
-export interface UserWithPhone {
-  phone?: string;
 }
 
 /**
@@ -56,13 +21,7 @@ export interface UserWithPhone {
  * kept inside the backend, never sent to the user. We use AppUserRead
  * to send the user profiles to the frontend.
  */
-export interface AppUser
-  extends UserWithId,
-    UserWithSettings,
-    UserWithAccounts,
-    UserWithAddress,
-    UserWithContact,
-    UserWithPhone {}
+export interface AppUser extends UserWithId {}
 
 export interface GetLoggedUserPayload {
   connect?: boolean;
@@ -70,12 +29,7 @@ export interface GetLoggedUserPayload {
 }
 
 /** details sent to the logged in user about themeselves */
-export interface AppUserRead
-  extends UserWithId,
-    UserWithSettings,
-    UserWithAddress,
-    UserWithContact,
-    UserWithPhone {}
+export interface AppUserRead extends UserWithId {}
 
 /** Test users support for mocks and tests */
 export interface TestUserCredentials {

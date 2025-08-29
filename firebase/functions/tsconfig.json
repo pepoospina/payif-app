@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "rootDir": "src",
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "strict": true,
+    "target": "es2017",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "preserveSymlinks": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["./src/types", "node_modules/@types", "./src/custom.d.ts"],
+    "allowJs": true,
+    "checkJs": false
+  },
+  "compileOnSave": true,
+  "include": ["src/index.ts", "src/@shared/", "src/custom.d.ts"]
+}

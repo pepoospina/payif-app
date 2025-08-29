@@ -1,0 +1,32 @@
+import { defineSecret, defineString } from 'firebase-functions/params';
+
+const PROJECT_ID = defineString('PROJECT_ID');
+const APP_URL = defineString('APP_URL');
+
+const CLERK_PUBLISHABLE_KEY = defineString('CLERK_PUBLISHABLE_KEY');
+
+const ALGOLIA_APP_ID = defineString('ALGOLIA_APP_ID');
+const ALGOLIA_INDEX_NAME = defineString('ALGOLIA_INDEX_NAME');
+
+const LOG_LEVEL_MSG = defineString('LOG_LEVEL_MSG');
+const LOG_LEVEL_OBJ = defineString('LOG_LEVEL_OBJ');
+
+const CLERK_SECRET_KEY = defineSecret('CLERK_SECRET_KEY');
+const STRIPE_SECRET_KEY = defineSecret('STRIPE_SECRET_KEY');
+const ALGOLIA_API_KEY = defineSecret('ALGOLIA_API_KEY');
+
+export const envRuntime = {
+  NODE_ENV: process.env.NODE_ENV,
+  REGION: process.env.FUNCTION_REGION,
+  OUTPUT_LOG_FILE: process.env.OUTPUT_LOG_FILE,
+  LOG_LEVEL_MSG: LOG_LEVEL_MSG,
+  LOG_LEVEL_OBJ: LOG_LEVEL_OBJ,
+  PROJECT_ID: PROJECT_ID,
+  APP_URL: APP_URL,
+  CLERK_PUBLISHABLE_KEY: CLERK_PUBLISHABLE_KEY,
+  CLERK_SECRET_KEY: CLERK_SECRET_KEY,
+  STRIPE_SECRET_KEY: STRIPE_SECRET_KEY,
+  ALGOLIA_APP_ID: ALGOLIA_APP_ID,
+  ALGOLIA_API_KEY: ALGOLIA_API_KEY,
+  ALGOLIA_INDEX_NAME: ALGOLIA_INDEX_NAME,
+};

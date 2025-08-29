@@ -1,0 +1,31 @@
+{
+  "name": "cervesera-launcher",
+  "version": "1.0.0",
+  "description": "cervesera osona app",
+  "main": "index.js",
+  "scripts": {
+    "set-secret": "firebase functions:secrets:set",
+    "emulate": "NODE_ENV=local FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 firebase --project demo-project emulators:start",
+    "emulate-from-bk": "NODE_ENV=local FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 firebase --project sensenets-prod emulators:start --import ",
+    "emulate-debug": "yarn emulate --inspect-functions",
+    "emulate-test": "yarn emulate-debug --only firestore",
+    "log": "npx firebase-logging --project=slowfeed-dev-dea4e --freq=1500 --n=10 --func ",
+    "deploy-dev": "firebase deploy --project dev",
+    "deploy-prod": "firebase deploy --project prod",
+    "clone-indexes": "bash -x ./clone-indexes.sh",
+    "reset-prod": "firebase firestore:delete --all-collections --project cervesera-osona",
+    "upload-backup": "bash -x ./migrations/02-upload-backup.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "firebase-logging": "^1.0.16",
+    "firebase-tools": "^13.8.0"
+  },
+  "dependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.4"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}

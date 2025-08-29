@@ -1,0 +1,50 @@
+{
+  "raw": {
+    "did": "did:plc:p7gxyfr5vii5ntpwo7f6dhe2",
+    "handle": "aoc.bsky.social",
+    "displayName": "Alexandria Ocasio-Cortez",
+    "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:p7gxyfr5vii5ntpwo7f6dhe2/bafkreia7pjciqmezep36yotfgas23eie47sy5ymcorzd7exejlxtiox6by@jpeg",
+    "associated": {
+      "lists": 0,
+      "feedgens": 0,
+      "starterPacks": 0,
+      "labeler": false
+    },
+    "viewer": {
+      "muted": false,
+      "blockedBy": false
+    },
+    "labels": [],
+    "createdAt": "2023-04-27T19:39:34.920Z",
+    "verification": {
+      "verifications": [
+        {
+          "issuer": "did:plc:z72i7hdynmk6r22z27h6tvur",
+          "uri": "at://did:plc:z72i7hdynmk6r22z27h6tvur/app.bsky.graph.verification/3lndpubtdai2f",
+          "isValid": true,
+          "createdAt": "2025-04-21T10:46:59.888Z"
+        }
+      ],
+      "verifiedStatus": "valid",
+      "trustedVerifierStatus": "none"
+    },
+    "description": "Waitress turned Congresswoman for the Bronx and Queens. Grassroots elected, small-dollar supported. A better world is possible.\n\nocasiocortez.com",
+    "indexedAt": "2024-11-25T23:52:14.147Z",
+    "followersCount": 2130506,
+    "followsCount": 567,
+    "postsCount": 534,
+    "pinnedPost": {
+      "cid": "bafyreigbw542h33qtx2xpxngrteovwsgzda63jkwe44na2vz2mcrykprnu",
+      "uri": "at://did:plc:p7gxyfr5vii5ntpwo7f6dhe2/app.bsky.feed.post/3lapo7x44ws2k"
+    }
+  },
+  "generic": {
+    "id": "did:plc:p7gxyfr5vii5ntpwo7f6dhe2",
+    "displayName": "Alexandria Ocasio-Cortez",
+    "username": "aoc.bsky.social",
+    "avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:p7gxyfr5vii5ntpwo7f6dhe2/bafkreia7pjciqmezep36yotfgas23eie47sy5ymcorzd7exejlxtiox6by@jpeg",
+    "metrics": {
+      "followers": 2130506
+    }
+  }
+}
