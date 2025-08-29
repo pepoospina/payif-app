@@ -1,14 +1,12 @@
 import { Box, DropButton, Image, Text } from "grommet";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
-import { useAccountContext } from "../user-login/contexts/AccountContext";
-import { AppButton } from "../ui-components";
 import { GeneralKeys } from "../i18n/i18n.general";
+import { AppButton } from "../ui-components";
 import { BoxCentered } from "../ui-components/BoxCentered";
-import { AbsoluteRoutes } from "../route.names";
-import { useThemeContext } from "../ui-components/ThemedApp";
 import { useResponsive } from "../ui-components/ResponsiveApp";
+import { useThemeContext } from "../ui-components/ThemedApp";
+import { useAccountContext } from "../user-login/contexts/AccountContext";
 
 export const ConnectedUser = () => {
   const { t } = useTranslation();
@@ -17,8 +15,6 @@ export const ConnectedUser = () => {
   const { mobile } = useResponsive();
 
   const { connectedUser, signIn, disconnect } = useAccountContext();
-
-  const navigate = useNavigate();
 
   if (!connectedUser) {
     return (
@@ -44,15 +40,6 @@ export const ConnectedUser = () => {
       dropContent={
         <Box>
           <Box direction="column">
-            {/* Settings Link */}
-            <Box
-              onClick={() => navigate(AbsoluteRoutes.Orders)}
-              pad={{ vertical: pad, horizontal: pad }}
-              hoverIndicator
-            >
-              <Text>{t(GeneralKeys.oldOrders)}</Text>
-            </Box>
-
             {/* Disconnect Option */}
             <Box
               onClick={() => disconnect()}
@@ -85,7 +72,9 @@ export const ConnectedUser = () => {
             }}
           >
             <Image
-              src={connectedUser.clerkUser.imageUrl}
+              src={
+                "https://cdn1.iconfinder.com/data/icons/user-pictures/100/male3-512.png"
+              }
               alt="Profile Image"
               fit="cover"
               style={{ width: "100%", height: "100%" }}

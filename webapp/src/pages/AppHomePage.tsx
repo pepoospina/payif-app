@@ -1,13 +1,10 @@
-import { Categories } from "../categories/Categories";
-import { ViewportPage } from "../app/layout/Viewport";
 import { Box } from "grommet";
+import { ViewportPage } from "../app/layout/Viewport";
 
 export const AppHomePage = () => {
   return (
     <ViewportPage>
-      <Box pad={{ vertical: "large", horizontal: "medium" }}>
-        <Categories></Categories>
-      </Box>
+      <Box pad={{ vertical: "large", horizontal: "medium" }}>Hi</Box>
     </ViewportPage>
   );
 };

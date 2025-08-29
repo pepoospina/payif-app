@@ -4,6 +4,12 @@ export enum Language {
   ENG = "eng",
 }
 
+export interface Translations {
+  cat: string;
+  spa?: string;
+  eng?: string;
+}
+
 export interface Payment {
   id: string;
   token: string;

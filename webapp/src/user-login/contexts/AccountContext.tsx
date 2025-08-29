@@ -9,14 +9,11 @@ import {
   useState,
 } from "react";
 
+import { useAppFetch } from "../../api/app.fetch";
 import {
   AppUserRead,
   GetLoggedUserPayload,
 } from "../../shared/types/types.user";
-import { useAppFetch } from "../../api/app.fetch";
-import { usePersist } from "../../utils/use.persist";
-import { CART_KEY } from "../../cart/CartContext";
-import { CartIds } from "../../shared/types/types.payments";
 
 const DEBUG = false;
 
@@ -25,7 +22,7 @@ export type AccountContextType = {
   connectedUser?: ConnectedUser;
   isConnected: boolean;
   disconnect: () => void;
-  refresh: (payload?: GetLoggedUserPayload) => Promise;
+  refresh: (payload?: GetLoggedUserPayload) => Promise<void>;
 };
 
 const AccountContextValue = createContext<AccountContextType | undefined>(
@@ -53,8 +50,6 @@ export const AccountContext = (props: PropsWithChildren) => {
   const { isSignedIn } = useUser();
   const { signOut } = useAuth();
   const { openSignIn } = useClerk();
-
-  const [, , deleteCart] = usePersist<CartIds>(CART_KEY, { products: [] });
 
   const signIn = () => {
     openSignIn();
@@ -94,7 +89,6 @@ export const AccountContext = (props: PropsWithChildren) => {
   const disconnect = () => {
     if (DEBUG) console.log(`disconnect called`);
 
-    deleteCart();
     signOut().catch(console.error);
     setConnectedUser(undefined);
   };

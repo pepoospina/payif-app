@@ -1,9 +1,8 @@
 import { Anchor, Box } from "grommet";
+import { useNavigate } from "react-router-dom";
+import { AbsoluteRoutes } from "../../route.names";
 import { ConnectedUser } from "../../user-login/ConnectedUser";
 import { LanguageSelector } from "../LanguageSelector";
-import { CartIconButton } from "../../cart/CartIconButton";
-import { AbsoluteRoutes } from "../../route.names";
-import { useNavigate } from "react-router-dom";
 
 export const TopBar = () => {
   const navigate = useNavigate();
@@ -27,7 +26,6 @@ export const TopBar = () => {
       </Box>
       <Box direction="row" gap="small" align="center">
         <LanguageSelector></LanguageSelector>
-        <CartIconButton></CartIconButton>
         <Box margin={{ left: "small" }} style={{ flexShrink: 0 }}>
           <ConnectedUser></ConnectedUser>
         </Box>

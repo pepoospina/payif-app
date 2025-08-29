@@ -1,12 +1,11 @@
 import { Box } from "grommet";
-import { AppHeading, FormInput } from "../../ui-components";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { CreatorKeys } from "../../i18n/i18n.creator";
-import { AppButton } from "../../ui-components";
-import { ChangeEvent, useState } from "react";
-import { usePersist } from "../../utils/use.persist";
 import { useAppFetch } from "../../api/app.fetch";
+import { CreatorKeys } from "../../i18n/i18n.creator";
 import { CreatePayment } from "../../shared/types/types.payments";
+import { AppButton, AppHeading, FormInput } from "../../ui-components";
+import { usePersist } from "../../utils/use.persist";
 
 const key = "paymentCreator";
 
@@ -45,7 +44,7 @@ export const PaymentCreator = (props: {
     setIsCreating(true);
 
     const createFunc = async () => {
-      const result = await appFetch<boolean, CreatePayment>(
+      const result = await appFetch<string, CreatePayment>(
         "/payments/create",
         payment
       );
@@ -65,7 +64,9 @@ export const PaymentCreator = (props: {
   };
 
   const setProperty = (key: keyof CreatePayment, value: string) => {
-    setPayment({ ...payment, [key]: value });
+    if (payment) {
+      setPayment({ ...payment, [key]: value });
+    }
   };
 
   if (!payment) return <></>;
@@ -77,8 +78,7 @@ export const PaymentCreator = (props: {
         inputProps={{
           placeholder: t(CreatorKeys.name),
           value: payment.payer,
-          onChange: (e: ChangeEvent) =>
-            setProperty("payer", e.target.value as string),
+          onChange: (e) => setProperty("payer", e.target.value),
         }}
       ></FormInput>
 

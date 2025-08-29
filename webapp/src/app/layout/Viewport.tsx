@@ -1,22 +1,20 @@
 import { Anchor, Box, Grid, Text } from "grommet";
 import { PropsWithChildren, ReactNode, useState } from "react";
 
-import { AppButton, AppHeading } from "../../ui-components";
-import { useThemeContext } from "../../ui-components/ThemedApp";
-import { BUILD_ID } from "../config";
-import { useResponsive } from "../../ui-components/ResponsiveApp";
-import { Categories } from "../../categories/Categories";
-import { TopBar } from "./TopBar";
-import { CartItems } from "../../cart/Cart";
-import { useAccountContext } from "../../user-login/contexts/AccountContext";
-import { useLocation, useNavigate } from "react-router-dom";
-import { RouteNames } from "../../route.names";
-import { CartButton } from "../../cart/CartButton";
-import { InstagramIcon } from "../icons/InstagramIcon";
-import { EmailIcon } from "../icons/EmailIcon";
 import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
+import { SideButton } from "../../app/layout/SideButton";
 import { GeneralKeys } from "../../i18n/i18n.general";
+import { RouteNames } from "../../route.names";
+import { AppButton, AppHeading } from "../../ui-components";
+import { useResponsive } from "../../ui-components/ResponsiveApp";
+import { useThemeContext } from "../../ui-components/ThemedApp";
+import { useAccountContext } from "../../user-login/contexts/AccountContext";
+import { BUILD_ID } from "../config";
+import { EmailIcon } from "../icons/EmailIcon";
+import { InstagramIcon } from "../icons/InstagramIcon";
 import { DraggableSideButton } from "./DraggableSideButton";
+import { TopBar } from "./TopBar";
 
 export const MAX_BUTTON_WIDTH = 800;
 export const HEADING_MARGIN = { bottom: "large" };
@@ -127,8 +125,8 @@ export const ViewportPage = (props: PropsWithChildren) => {
   const { t } = useTranslation();
   const { constants } = useThemeContext();
 
-  const showCart =
-    !!connectedUser && !location.pathname.includes(RouteNames.Checkout);
+  const showSidebar =
+    !!connectedUser && !location.pathname.includes(RouteNames.CreatePayment);
 
   const showCategories = location.pathname !== "/";
 
@@ -173,7 +171,6 @@ export const ViewportPage = (props: PropsWithChildren) => {
         primary
         onClick={() => navigate(-1)}
       ></AppButton>
-      <Categories select></Categories>
     </Box>
   );
 
@@ -212,14 +209,14 @@ export const ViewportPage = (props: PropsWithChildren) => {
             {props.children}
           </Box>
 
-          {showCart && (
+          {showSidebar && (
             <DraggableSideButton
               onClick={() => setShowRight(!showRight)}
               persistKey="cartButtonPosition"
               defaultPosition={mobile ? window.innerHeight - 300 : 60}
             >
               <AppButton plain>
-                <CartButton expanded={showRight}></CartButton>
+                <SideButton expanded={showRight}></SideButton>
               </AppButton>
             </DraggableSideButton>
           )}
@@ -253,16 +250,14 @@ export const ViewportPage = (props: PropsWithChildren) => {
                 <Box
                   style={{ flexGrow: 1 }}
                   pad={{ vertical: "large", horizontal: "medium" }}
-                >
-                  <Categories showSelected></Categories>
-                </Box>
+                ></Box>
               )}
             </Box>
           </>
         )}
       </Grid>
 
-      {showCart && (
+      {showSidebar && (
         <Box
           style={{
             position: "absolute",
@@ -282,7 +277,7 @@ export const ViewportPage = (props: PropsWithChildren) => {
           }}
           pad={{ horizontal: "medium", vertical: "medium" }}
         >
-          <CartItems direction="column" showGoToCheckout></CartItems>
+          <Text>Side</Text>
         </Box>
       )}
     </Box>
