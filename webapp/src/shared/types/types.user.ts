@@ -11,28 +11,16 @@ export const toHexStr = (str: string): HexStr => {
   }
 };
 
-/** The AppUser object combines the details of each platform */
 export interface UserWithId {
   userId: string;
 }
 
-/**
- * AppUser is the entire User object (include credentials) and MUST be
- * kept inside the backend, never sent to the user. We use AppUserRead
- * to send the user profiles to the frontend.
- */
-export interface AppUser extends UserWithId {}
-
-export interface GetLoggedUserPayload {
-  connect?: boolean;
-  subscriptions?: boolean;
+export interface AppUser extends UserWithId {
+  signupDate?: Date;
 }
 
-/** details sent to the logged in user about themeselves */
-export interface AppUserRead extends UserWithId {}
+export interface AppUserCreate extends AppUser {}
 
-/** Test users support for mocks and tests */
-export interface TestUserCredentials {
-  userId: string;
-  clerkId: string;
-}
+export interface AppUserRead extends AppUser {}
+
+export interface AppUserUpdate extends AppUser {}

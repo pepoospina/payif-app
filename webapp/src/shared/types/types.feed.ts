@@ -4,6 +4,10 @@ export interface CommonQuery {
   fromId?: string;
 }
 
+export interface GetIndexedPayload {
+  query: CommonQuery;
+}
+
 export interface Indexed {
   id: string;
   rank: number;

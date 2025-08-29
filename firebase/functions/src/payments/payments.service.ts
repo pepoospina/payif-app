@@ -1,4 +1,10 @@
-import { CreatePayment, Payment } from "../@shared/types/types.payments";
+import { CommonQuery } from "@shared/types/types.feed";
+import { SearchProductsResult } from "@shared/types/types.search";
+import {
+  CreatePayment,
+  Payment,
+  UpdatePayment,
+} from "../@shared/types/types.payments";
 import { DBInstance } from "../db/instance";
 import { TransactionManager } from "../db/transaction.manager";
 import { Repositories } from "../instances/services";
@@ -18,16 +24,17 @@ export class PaymentsService {
     manager: TransactionManager,
     ownerId?: string
   ): Promise<Payment> {
+    if (DEBUG) console.log("payload", payload);
     return this.repos.payments.create(payload, manager);
   }
 
   /*** userId MUST be the authenticated user */
   async update(
-    payload: UpdateProduct,
+    payload: UpdatePayment,
     manager: TransactionManager,
     userId?: string
   ): Promise<void> {
-    const product = await this.repos.products.get(payload.id, manager, true);
+    const product = await this.repos.payments.get(payload.id, manager, true);
 
     if (!product) {
       throw new Error(`Product with id ${payload.id} not found`);
@@ -40,24 +47,22 @@ export class PaymentsService {
     }
 
     if (!payload.delete) {
-      if (!payload.product) {
+      if (!payload.payment) {
         throw new Error("Product is required");
       }
 
-      const _product = this.getInitProduct(
-        payload.product,
-        product.owner,
-        product.ownerId
-      );
-
-      this.repos.products.update(payload.id, _product, manager);
+      this.repos.payments.update(payload.id, payload.payment, manager);
     } else {
-      this.repos.products.delete(product.id, manager);
+      this.repos.payments.delete(product.id, manager);
     }
   }
 
   async get(id: string, manager: TransactionManager, shouldThrow?: boolean) {
-    return this.repos.products.get(id, manager, shouldThrow);
+    return this.repos.payments.get(id, manager, shouldThrow);
+  }
+
+  async getMany(query: CommonQuery, manager: TransactionManager) {
+    return this.repos.payments.getMany(query, manager);
   }
 
   async searchPayment(query: string): Promise<SearchProductsResult> {

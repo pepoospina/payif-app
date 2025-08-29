@@ -22,4 +22,12 @@ export interface Payment extends Indexed {
 
 export type CreatePayment = Omit<Payment, "id">;
 
-export type UpdatePayment = CreatePayment;
+export type UpdatePayment = {
+  id: string;
+  payment: CreatePayment;
+  delete?: boolean;
+};
+
+export interface GetPaymentPayload {
+  id: string;
+}

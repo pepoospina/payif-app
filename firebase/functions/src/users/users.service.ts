@@ -20,17 +20,9 @@ export class UsersService {
     protected time: TimeService
   ) {}
 
-  public async createUser(clerkId: string, manager: TransactionManager) {
-    const userId = await this.repo.createUser(
-      {
-        clerkId,
-        signupDate: this.time.now(),
-        profilesIds: [],
-      },
-      manager
-    );
-
-    return userId;
+  public async createUser(userId: string, manager: TransactionManager) {
+    const _userId = await this.repo.createUser({ userId }, manager);
+    return _userId;
   }
 
   public async getLoggedUserRead(
@@ -42,73 +34,9 @@ export class UsersService {
 
     const userRead: AppUserRead = {
       userId,
-      clerkId: user.clerkId,
       signupDate: user.signupDate,
     };
 
     return userRead;
-  }
-
-  async createCheckoutSession(
-    userId: string,
-    details: CreateCheckoutSession,
-    manager: TransactionManager
-  ) {
-    const { cart, lang, address, contactDetails } = details;
-    const user = await this.repo.getUser(userId, manager, true);
-
-    const verifiedCart = await this.products.verifyCart(cart, manager);
-
-    const session = await this.payments.createCheckoutSession(
-      user.email,
-      verifiedCart,
-      lang
-    );
-
-    const order: OrderCreate = {
-      userId,
-      session,
-      items: cart,
-      paymentStatus: PaymentStatus.PENDING,
-      createdAt: this.time.now(),
-      address,
-      contactDetails,
-    };
-
-    await this.repo.update(
-      userId,
-      {
-        address,
-        phone: details.contactDetails.phone,
-      },
-      manager
-    );
-
-    this.orders.create(order, manager);
-
-    return session;
-  }
-
-  async refreshLatestOrderStatus(userId: string, manager: TransactionManager) {
-    const order = await this.orders.getLatestOrder(userId, manager);
-    if (!order) return;
-
-    await this.refreshOrderStatus(order.session.sessionId, manager);
-  }
-
-  async refreshOrderStatus(sessionId: string, manager: TransactionManager) {
-    const stripe = await this.payments.getSessionFromId(sessionId);
-    const order = await this.orders.getOrderBySessionId(sessionId, manager);
-
-    if (
-      order.paymentStatus === PaymentStatus.PENDING &&
-      stripe.payment_status === "paid"
-    ) {
-      await this.orders.updateOrder(
-        order.id,
-        { paymentStatus: PaymentStatus.COMPLETED },
-        manager
-      );
-    }
   }
 }

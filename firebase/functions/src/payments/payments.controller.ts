@@ -1,11 +1,12 @@
 import { RequestHandler } from "express";
 
-import { CreateProduct, ProductOwner } from "../@shared/types/types.payments ";
+import { GetIndexedPayload } from "@shared/types/types.feed";
+import { CreatePayment, GetPaymentPayload } from "@shared/types/types.payments";
 import { getAuthenticatedUser, getServices } from "../controllers.utils";
 import { logger } from "../instances/logger";
 import {
-  createProductSchema,
-  getElementSchema,
+  createPaymentSchema,
+  getPaymentSchema,
   getProductsSchema,
 } from "./payment.schema";
 
@@ -20,7 +21,7 @@ export const getPaymentsController: RequestHandler = async (
     const userId = getAuthenticatedUser(request);
     const payload = (await getProductsSchema.validate(
       request.body
-    )) as GetPaymentsPayload;
+    )) as GetIndexedPayload;
 
     if (DEBUG)
       logger.debug(`${request.path}: getCategoryProducts`, { payload });
@@ -35,7 +36,9 @@ export const getPaymentsController: RequestHandler = async (
       }
     }
 
-    const products = await services.products.getProducts(payload.query);
+    const products = await services.db.run(async (manager) =>
+      services.payments.getMany(payload.query, manager)
+    );
 
     if (DEBUG)
       logger.debug(`${request.path}: getCategoryProducts success`, {
@@ -49,24 +52,24 @@ export const getPaymentsController: RequestHandler = async (
   }
 };
 
-export const getProductController: RequestHandler = async (
+export const getPaymentController: RequestHandler = async (
   request,
   response
 ) => {
   try {
     const services = getServices(request);
-    const payload = (await getElementSchema.validate(
+    const payload = (await getPaymentSchema.validate(
       request.body
-    )) as GetProductPayload;
+    )) as GetPaymentPayload;
 
     if (DEBUG) logger.debug(`${request.path}: getProduct`, { payload });
 
     const product = await services.db.run((manager) =>
-      services.products.getProduct(payload.id, manager)
+      services.payments.get(payload.id, manager)
     );
 
     if (DEBUG)
-      logger.debug(`${request.path}: getProduct success`, {
+      logger.debug(`${request.path}: getPayment success`, {
         product: product,
       });
 
@@ -77,25 +80,20 @@ export const getProductController: RequestHandler = async (
   }
 };
 
-export const createProductController: RequestHandler = async (
+export const createPaymentController: RequestHandler = async (
   request,
   response
 ) => {
   try {
     const userId = getAuthenticatedUser(request, true);
     const services = getServices(request);
-    const payload = (await createProductSchema.validate(
+    const payload = (await createPaymentSchema.validate(
       request.body
-    )) as CreateProduct;
+    )) as CreatePayment;
     if (DEBUG) logger.debug(`${request.path}: createProduct`, { payload });
 
     const product = await services.db.run(async (manager) =>
-      services.products.createProduct(
-        payload,
-        ProductOwner.USER,
-        manager,
-        userId
-      )
+      services.payments.create(payload, manager, userId)
     );
 
     if (DEBUG)
