@@ -1,88 +1,145 @@
-import { Button, ButtonExtendedProps, DropButton, DropButtonExtendedProps } from 'grommet'
-import { useState } from 'react'
+import {
+  Box,
+  Button,
+  ButtonExtendedProps,
+  DropButton,
+  DropButtonExtendedProps,
+  Text,
+} from "grommet";
+import { useState } from "react";
 
-import { useResponsive } from '../components/app/ResponsiveApp'
-import { useThemeContext } from '../components/app/ThemedApp'
-import { AppModal, IAppModal } from './AppModal'
+import { AppModal, IAppModal } from "./AppModal";
+import { Loading } from "./LoadingDiv";
+import { useResponsive } from "./ResponsiveApp";
+import { useThemeContext } from "./ThemedApp";
 
-export interface IButton extends ButtonExtendedProps {}
+export type IButton = ButtonExtendedProps;
+export type AppButtonClickEvent = React.MouseEvent<
+  HTMLButtonElement | HTMLAnchorElement
+>;
 
 const circleButtonStyle: React.CSSProperties = {
-  width: '56px',
-  height: '56px',
-  padding: '6px',
-  border: '2px solid',
-  borderRadius: '50%',
-  textAlign: 'center',
-}
+  padding: "5px",
+  border: "2px solid",
+  borderRadius: "50%",
+  textAlign: "center",
+};
 
-export const AppButton = (props: IButton) => {
+export const AppButton = (props: IButton & { isLoading?: boolean }) => {
+  const { constants } = useThemeContext();
+  const newProps = { ...props };
+
+  if (newProps.isLoading) {
+    newProps.disabled = true;
+    newProps.label = (
+      <Box justify="center" direction="row">
+        <Loading size="16px" color={constants.colors.textOnPrimary}></Loading>
+      </Box>
+    );
+  }
+
   return (
     <>
-      <Button {...props} style={{ textTransform: 'uppercase', ...props.style }} />
+      <Button
+        {...newProps}
+        style={{
+          ...constants.fontSize.small,
+          padding: !props.plain ? "6px 12px" : "0px",
+          minHeight: !props.plain ? "42px" : "auto",
+          ...props.style,
+        }}
+      />
     </>
-  )
-}
+  );
+};
 
 export const AppCircleButton = (props: IButton) => {
-  const { constants } = useThemeContext()
-  circleButtonStyle.borderColor = constants.colors.primary
+  const { constants } = useThemeContext();
+  circleButtonStyle.backgroundColor = constants.colors.white;
+  circleButtonStyle.borderColor = constants.colors.border;
 
   return (
     <AppButton
       {...props}
       plain
       label=""
-      style={{ ...circleButtonStyle, ...props.style }}
+      style={{
+        ...props.style,
+        ...circleButtonStyle,
+      }}
     ></AppButton>
-  )
-}
+  );
+};
 
 export const AppButtonResponsive = (props: IButton) => {
-  const { mobile } = useResponsive()
+  const { mobile } = useResponsive();
   return mobile ? (
     <AppCircleButton {...props}></AppCircleButton>
   ) : (
     <AppButton {...props}></AppButton>
-  )
-}
+  );
+};
 
 export const AppCircleDropButton = (props: DropButtonExtendedProps) => {
-  const { constants } = useThemeContext()
-  circleButtonStyle.borderColor = constants.colors.primary
+  const { constants } = useThemeContext();
+  circleButtonStyle.borderColor = constants.colors.primary;
 
   return (
     <DropButton
       {...props}
       plain
-      style={{ ...circleButtonStyle, ...props.style }}
+      style={{ ...props.style, ...circleButtonStyle }}
     ></DropButton>
-  )
-}
+  );
+};
 
-export const AppCircleDropButtonResponsive = (props: DropButtonExtendedProps) => {
-  const { mobile } = useResponsive()
+export const AppCircleDropButtonResponsive = (
+  props: DropButtonExtendedProps
+) => {
+  const { mobile } = useResponsive();
   return !mobile ? (
     <DropButton {...props}></DropButton>
   ) : (
     <AppCircleDropButton {...props}></AppCircleDropButton>
-  )
-}
+  );
+};
 
 export const AppModalButtonResponsive = (props: {
-  buttonProps: IButton
-  modalProps: IAppModal
+  buttonProps: IButton;
+  modalProps: IAppModal;
 }) => {
-  const [showDrop, setShowDrop] = useState<boolean>(false)
+  const [showDrop, setShowDrop] = useState<boolean>(false);
 
   return (
     <>
-      <AppButton onClick={() => setShowDrop(!showDrop)} {...props.buttonProps}></AppButton>
+      <AppButton
+        onClick={() => setShowDrop(!showDrop)}
+        {...props.buttonProps}
+      ></AppButton>
       {showDrop ? (
-        <AppModal onClosed={() => setShowDrop(false)} {...props.modalProps}></AppModal>
+        <AppModal
+          onModalClosed={() => setShowDrop(false)}
+          {...props.modalProps}
+        ></AppModal>
       ) : (
         <></>
       )}
     </>
-  )
-}
+  );
+};
+
+export const AppButtonTwoLinesLabel = (props: {
+  tag?: JSX.Element | string;
+  label?: JSX.Element | string;
+}) => {
+  return (
+    <Box align="start">
+      <Box>
+        <Text size="xsmall">{props.tag}</Text>
+      </Box>
+      <Box>
+        <Text>{props.label}</Text>
+      </Box>
+    </Box>
+  );
+};

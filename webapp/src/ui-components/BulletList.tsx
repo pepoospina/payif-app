@@ -1,7 +1,7 @@
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
 
 export const BulletList = (props: { elements: ReactNode[] }) => {
-  const liStyle: React.CSSProperties = { marginBottom: '12px' }
+  const liStyle: React.CSSProperties = { marginBottom: '12px' };
 
   return (
     <ul>
@@ -10,8 +10,8 @@ export const BulletList = (props: { elements: ReactNode[] }) => {
           <li style={liStyle} key={ix}>
             {e}
           </li>
-        )
+        );
       })}
     </ul>
-  )
-}
+  );
+};

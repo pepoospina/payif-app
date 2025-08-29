@@ -13,8 +13,11 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "declaration": true,
+    "sourceMap": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./build"
   },
-  "include": ["src", "src/build/hardhat_contracts.json"]
+  "include": ["src/index.tsx", "src/service-worker.ts", "test"]
 }

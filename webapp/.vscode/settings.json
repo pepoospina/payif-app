@@ -47,20 +47,7 @@
     "**/.yalc": true,
     "**/.yarn": true
   },
-  "explorerExclude.backup": null,
-  "eslint.workingDirectories": [
-    { "directory": "app", "changeProcessCWD": true },
-    { "directory": "contracts", "changeProcessCWD": true }
-  ],
-  "solidity.packageDefaultDependenciesDirectory": "contracts/node_modules",
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[solidity]": {
-    "editor.defaultFormatter": "JuanBlanco.solidity"
-  },
-  "solidity.defaultCompiler": "localNodeModule"
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

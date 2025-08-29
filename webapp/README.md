@@ -1,3 +1,0 @@
-# PayIf App
-
-(more soon)

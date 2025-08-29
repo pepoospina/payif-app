@@ -1,34 +1,20 @@
 {
-  "short_name": "udemocracies",
-  "name": "Microdemocracies",
-  "start_url": "https://app.microdemocracies.com",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#f4f4f6",
+  "short_name": "Slowfeed",
+  "name": "Slowfeed",
   "icons": [
     {
-      "src": "logomr2-192.png",
+      "src": "icons/logo-sf-192.png",
       "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "any maskable"
+      "sizes": "192x192"
     },
     {
-      "src": "bgmr2-192.png",
+      "src": "icons/logo-sf-512.png",
       "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "any"
-    },
-    {
-      "src": "logomr2-512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "bgmr2-512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any"
+      "sizes": "512x512"
     }
-  ]
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#111827",
+  "background_color": "#ffffff"
 }

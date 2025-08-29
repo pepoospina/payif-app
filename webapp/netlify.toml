@@ -1,3 +1,4 @@
+# Existing rule for the SPA
 [[redirects]]
   from = "/*"
   to = "/"

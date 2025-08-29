@@ -2,53 +2,37 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "hardhat test",
+      "name": "functions tests",
       "type": "node",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
-      "runtimeExecutable": "${workspaceFolder}/contracts/node_modules/.bin/hardhat",
-      "args": ["test", "--network", "hardhat"],
-      "cwd": "${workspaceFolder}/contracts",
-      "console": "integratedTerminal"
-    },
-    {
-      "name": "hardhat deploy",
-      "type": "node",
-      "request": "launch",
-      "skipFiles": ["<node_internals>/**"],
-      "runtimeExecutable": "${workspaceFolder}/contracts/node_modules/.bin/hardhat",
-      "args": ["deploy", "--network", "hardhat"],
-      "cwd": "${workspaceFolder}/contracts",
-      "console": "integratedTerminal"
-    },
-    {
-      "name": "firebase functions test",
-      "type": "node",
-      "request": "launch",
-      "skipFiles": ["<node_internals>/**"],
-      "runtimeExecutable": "${workspaceFolder}/firebase/functions/node_modules/.bin/mocha",
-      "args": [
-        "--config",
-        "./.mocharc.e2e.js",
-        "src/__e2e_tests__/**/*.test.ts"
-      ],
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [],
       "env": {
-        "NODE_ENV": "local",
-        "FIRESTORE_EMULATOR_HOST": "localhost:8080"
+        "NODE_ENV": "test",
+        "FUNCTIONS_BASE": "http://127.0.0.1:5001/sensenets-9ef26/us-central1"
       },
-      "cwd": "${workspaceFolder}/firebase/functions",
+      "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
     },
     {
-      "name": "app build",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/app",
-      "runtimeExecutable": "yarn",
-      "runtimeArgs": ["run", "test-prod"],
-      "args": ["--config", "craco.config.prod.js"],
+      "name": "craco-build",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "build-local"],
+      "port": 9229,
+      "timeout": 30000,
+      "skipFiles": ["<node_internals>/**"],
       "console": "integratedTerminal",
-      "skipFiles": ["<node_internals>/**"]
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceRoot}/src"
     }
   ]
 }

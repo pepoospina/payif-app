@@ -1,48 +1,49 @@
-import { I18nextProvider } from 'react-i18next'
-import { BrowserRouter } from 'react-router-dom'
+import { useEffect } from "react";
+import { I18nextProvider } from "react-i18next";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { ResponsiveApp, ThemedApp } from './components/app'
-import { AppContainer } from './components/app/AppContainer'
-import { AppLanguage } from './components/app/AppLanguage'
-import { GlobalStyles } from './components/styles/GlobalStyles'
-import { LoadingContext } from './contexts/LoadingContext'
-import { ServiceWorker } from './contexts/ServiceWorkerContext'
-import { ToastsContext } from './contexts/ToastsContext'
-import { i18n } from './i18n/i18n'
-import { AccountContext } from './wallet/AccountContext'
-import { ConnectedWallet } from './wallet/ConnectedWalletContext'
-import { SignerContext } from './wallet/SignerContext'
+import { AppContainer0 } from "./app/AppContainer";
+import { ServiceWorker } from "./app/ServiceWorkerContext";
+import { ToastsContext } from "./app/ToastsContext";
+import { i18n } from "./i18n/i18n";
+import { AppLanguage } from "./app/AppLanguage";
+
+const DEBUG = false;
+const DEBUG_PREFIX = ``;
 
 function App() {
-  console.log('window.history', window.history)
+  // for debug
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      if (DEBUG) console.log(`${DEBUG_PREFIX}App mounted`);
+    }
+    return () => {
+      mounted = false;
+      if (DEBUG) console.log(`${DEBUG_PREFIX}App unmounted`);
+    };
+  }, []);
+
   return (
     <div className="App">
       <ServiceWorker>
         <I18nextProvider i18n={i18n}>
-          <AppLanguage>
-            <ThemedApp>
-              <ToastsContext>
-                <LoadingContext>
-                  <ConnectedWallet>
-                    <SignerContext>
-                      <AccountContext>
-                        <GlobalStyles />
-                        <ResponsiveApp>
-                          <BrowserRouter>
-                            <AppContainer></AppContainer>
-                          </BrowserRouter>
-                        </ResponsiveApp>
-                      </AccountContext>
-                    </SignerContext>
-                  </ConnectedWallet>
-                </LoadingContext>
-              </ToastsContext>
-            </ThemedApp>
-          </AppLanguage>
+          <ToastsContext>
+            <AppLanguage>
+              <BrowserRouter>
+                <Routes>
+                  <Route
+                    path="/*"
+                    element={<AppContainer0></AppContainer0>}
+                  ></Route>
+                </Routes>
+              </BrowserRouter>
+            </AppLanguage>
+          </ToastsContext>
         </I18nextProvider>
       </ServiceWorker>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

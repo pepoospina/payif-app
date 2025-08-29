@@ -1,30 +1,68 @@
-import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
-import { translation as translationCat } from './translation.cat'
-import { translation as translationEng } from './translation.eng'
-import { translation as translationSpa } from './translation.spa'
+import {
+  GeneralKeys,
+  generalValuesCAT,
+  generalValuesENG,
+  generalValuesSPA,
+} from "./i18n.general";
+import {
+  PayFormKeys,
+  payFormValuesENG,
+  payFormValuesSPA,
+  payFormValuesCAT,
+} from "./i18n.pay.form";
+import {
+  CreatorKeys,
+  creatorValuesENG,
+  creatorValuesSPA,
+  creatorValuesCAT,
+} from "./i18n.creator";
 
-const preferred = localStorage.getItem('language')
+export type I18Keys = GeneralKeys | PayFormKeys | CreatorKeys;
 
-i18n.use(initReactI18next).init({
-  resources: {
-    ENG: {
-      translation: translationEng,
+export const translationENG: Record<I18Keys, string> = {
+  ...generalValuesENG,
+  ...payFormValuesENG,
+  ...creatorValuesENG,
+};
+
+export const translationSPA: Record<I18Keys, string> = {
+  ...generalValuesSPA,
+  ...payFormValuesSPA,
+  ...creatorValuesSPA,
+};
+
+export const translationCAT: Record<I18Keys, string> = {
+  ...generalValuesCAT,
+  ...payFormValuesCAT,
+  ...creatorValuesCAT,
+};
+
+i18n
+  .use(initReactI18next)
+  .init({
+    resources: {
+      spa: {
+        translation: translationSPA,
+      },
+      eng: {
+        translation: translationENG,
+      },
+      cat: {
+        translation: translationCAT,
+      },
     },
-    SPA: {
-      translation: translationSpa,
-    },
-    CAT: {
-      translation: translationCat,
-    },
-  },
-  lng: preferred && preferred !== null ? preferred : 'ENG', // default language
-  fallbackLng: 'ENG',
+    lng: "spa", // default language
+    fallbackLng: "spa",
 
-  interpolation: {
-    escapeValue: false,
-  },
-})
+    interpolation: {
+      escapeValue: false,
+    },
+  })
+  .catch((e) => {
+    console.error("i18n init error", e);
+  });
 
-export { i18n }
+export { i18n };

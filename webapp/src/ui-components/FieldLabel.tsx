@@ -1,16 +1,15 @@
-import { Box, BoxExtendedProps } from 'grommet'
-import { ReactElement } from 'react'
-
-import { HelpTip } from './HelpTip'
+import { Box, BoxExtendedProps } from 'grommet';
+import { ReactElement } from 'react';
+import { HelpTip } from './HelpTip';
 
 export interface IFieldLabel extends BoxExtendedProps {
-  label: string
-  required?: boolean
-  help?: string | ReactElement
+  label: string;
+  required?: boolean;
+  help?: string | ReactElement;
 }
 
 export const FieldLabel = (props: IFieldLabel) => {
-  const required = props.required !== undefined ? props.required : false
+  const required = props.required !== undefined ? props.required : false;
 
   return (
     <Box direction="row" align="center" style={{ ...props.style }}>
@@ -22,5 +21,5 @@ export const FieldLabel = (props: IFieldLabel) => {
       </Box>
       {props.help ? <HelpTip _content={props.help}></HelpTip> : <></>}
     </Box>
-  )
-}
+  );
+};

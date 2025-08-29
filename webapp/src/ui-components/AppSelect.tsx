@@ -1,36 +1,18 @@
-import { Box, BoxExtendedProps, Select, SelectExtendedProps } from 'grommet'
+import { Select, SelectExtendedProps } from 'grommet';
+import React from 'react';
 
-import { useThemeContext } from '../components/app'
-
-export const AppSelect = (props: SelectExtendedProps): JSX.Element => {
-  return <Select {...props}></Select>
-}
-
-export const SelectRow = (props: BoxExtendedProps): JSX.Element => {
+export const AppSelect = React.forwardRef<
+  HTMLInputElement,
+  SelectExtendedProps
+>((props, ref): JSX.Element => {
   return (
-    <Box
-      direction="row"
-      align="center"
-      style={{ width: '100%', padding: '6px 12px', ...props.style }}
-    >
-      {props.children}
-    </Box>
-  )
-}
-
-export const SelectValue = (props: BoxExtendedProps): JSX.Element => {
-  const { constants } = useThemeContext()
-
-  return (
-    <SelectRow
+    <Select
+      {...props}
+      ref={ref}
       style={{
-        border: '1px solid',
-        borderRadius: '32px',
-        borderColor: constants.colors.border,
+        border: 'none',
+        padding: '0',
         ...props.style,
-      }}
-    >
-      {props.children}
-    </SelectRow>
-  )
-}
+      }}></Select>
+  );
+});
