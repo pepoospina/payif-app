@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useCallback } from "react";
 
-import { useAuth } from "@clerk/clerk-react";
 import { FUNCTIONS_BASE } from "../app/config";
 import { DefinedIfTrue } from "../shared/types/types.user";
 
@@ -73,7 +72,9 @@ export const _appFetch = async <
 };
 
 export const useAppFetch = () => {
-  const { getToken } = useAuth();
+  const getToken = useCallback(() => {
+    return "abce";
+  }, []);
 
   const appFetch = useCallback(
     async <T, D = unknown, S extends boolean = true>(
@@ -82,7 +83,7 @@ export const useAppFetch = () => {
       shouldThrow?: S,
       auth = false
     ) => {
-      const token = await getToken();
+      const token = getToken();
       const publishableKey = window.Clerk?.publishableKey;
 
       if (DEBUG) {

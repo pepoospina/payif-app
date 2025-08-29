@@ -1,5 +1,3 @@
-import { useAuth, useClerk, useUser } from "@clerk/clerk-react";
-
 import {
   PropsWithChildren,
   createContext,
@@ -10,10 +8,7 @@ import {
 } from "react";
 
 import { useAppFetch } from "../../api/app.fetch";
-import {
-  AppUserRead,
-  GetLoggedUserPayload,
-} from "../../shared/types/types.user";
+import { AppUserRead } from "../../shared/types/types.user";
 
 const DEBUG = false;
 
@@ -22,7 +17,7 @@ export type AccountContextType = {
   connectedUser?: ConnectedUser;
   isConnected: boolean;
   disconnect: () => void;
-  refresh: (payload?: GetLoggedUserPayload) => Promise<void>;
+  refresh: () => Promise<void>;
 };
 
 const AccountContextValue = createContext<AccountContextType | undefined>(
@@ -47,9 +42,13 @@ export const AccountContext = (props: PropsWithChildren) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const appFetch = useAppFetch();
-  const { isSignedIn } = useUser();
-  const { signOut } = useAuth();
-  const { openSignIn } = useClerk();
+  const isSignedIn = true;
+  const signOut = () => {
+    console.log("signOut");
+  };
+  const openSignIn = () => {
+    console.log("openSignIn");
+  };
 
   const signIn = () => {
     openSignIn();
@@ -58,20 +57,16 @@ export const AccountContext = (props: PropsWithChildren) => {
   const [connectedUser, setConnectedUser] = useState<ConnectedUser | null>();
 
   const refresh = useCallback(
-    async (payload?: GetLoggedUserPayload) => {
+    async () => {
       try {
-        const user = await appFetch<AppUserRead, GetLoggedUserPayload>(
-          "/auth/me",
-          payload,
-          true
-        );
+        const user = await appFetch<AppUserRead, unknown>("/auth/me", {}, true);
         if (DEBUG) console.log("set connectedUser after fetch", { user });
 
         /** set user */
         setConnectedUser(user);
       } catch (e) {
         console.error(`Error getting logged in user`, e);
-        signOut().catch(console.error);
+        signOut();
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,7 +76,7 @@ export const AccountContext = (props: PropsWithChildren) => {
   /** keep the conneccted user linkted to the current token */
   useEffect(() => {
     if (isSignedIn) {
-      refresh({ connect: true, subscriptions: true }).catch(console.error);
+      refresh().catch(console.error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSignedIn]);
@@ -89,7 +84,7 @@ export const AccountContext = (props: PropsWithChildren) => {
   const disconnect = () => {
     if (DEBUG) console.log(`disconnect called`);
 
-    signOut().catch(console.error);
+    signOut();
     setConnectedUser(undefined);
   };
 

@@ -4,10 +4,10 @@ const localEnv = {
   NODE_ENV: '"development"',
   FUNCTIONS_BASE: '"http://127.0.0.1:5001/demo-project/us-central1/api"',
   FB_PROJECTID: '"demo-project"',
-  PROJECT_TWITTER_ACCOUNT: '"Slowfeed.ai"',
   APP_URL: '"http://127.0.0.1:3000"',
-  PUBLIC_CLERK_KEY:
-    '"pk_test_Y29ycmVjdC13ZWV2aWwtNy5jbGVyay5hY2NvdW50cy5kZXYk"',
+  PUBLIC_PRIVY_APP_ID: '"cmex0h8fk01e3l80bfj1fcqjr"',
+  PUBLIC_PRIVY_CLIENT_ID:
+    '"client-WY6PsXsnJT8M18Lh9zfX8W6Mt86fmNrQAgYZeqnPSs4f3"',
 };
 
 module.exports = {

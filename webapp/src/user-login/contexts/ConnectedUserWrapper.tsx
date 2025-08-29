@@ -3,7 +3,7 @@ import { PropsWithChildren, createContext } from "react";
 import { AccountContext } from "./AccountContext";
 import { DisconnectUserContext } from "./DisconnectUserContext";
 import { NavHistoryContext } from "./NavHistoryContext";
-import { ClerkContext } from "./ClerkContext";
+import { PrivyContext } from "./PrivyContext";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ConnectedUserContextType {}
@@ -21,13 +21,13 @@ const ConnectedUserWrapperValue = createContext<
 export const ConnectedUserWrapper = (props: PropsWithChildren) => {
   return (
     <ConnectedUserWrapperValue.Provider value={{}}>
-      <ClerkContext>
+      <PrivyContext>
         <AccountContext>
           <DisconnectUserContext>
             <NavHistoryContext>{props.children}</NavHistoryContext>
           </DisconnectUserContext>
         </AccountContext>
-      </ClerkContext>
+      </PrivyContext>
     </ConnectedUserWrapperValue.Provider>
   );
 };
