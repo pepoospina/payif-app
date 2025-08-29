@@ -12,4 +12,4 @@ export interface Payment {
   receiver: string;
 }
 
-export type CreatePayment = Omit;
+export type CreatePayment = Omit<Payment, "id">;
